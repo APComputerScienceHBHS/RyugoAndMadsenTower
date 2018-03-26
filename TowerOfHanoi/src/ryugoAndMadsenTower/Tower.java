@@ -1,32 +1,68 @@
 package ryugoAndMadsenTower;
 import java.util.Stack;
-//Just in case we implement user input
-//import java.util.Scanner;
+import java.util.Scanner;
 
 public class Tower {
 
-	public static void solve(Stack<Integer>[] towers) {
-		int n = towers[0].size();
-		int[] ftu = {0,1,2};
-		solveHelper(n, ftu, towers);
-	}
-	public static void solveHelper(int n, int[] ftu, Stack<Integer>[] towers) {
-		if(n != 1) {
-			int[] n_ftu = {ftu[0], ftu[2], ftu[1]};
-			solveHelper(n - 1, n_ftu, towers);
-		}
-		towers[ftu[1]].add(towers[ftu[0]].pop());
-		
-	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Stack<Integer>[] towers = new Stack[3];
-		int discCnt = 5;
-		for (int i = discCnt; i < 1; i--) {
+		Stack[] towers = {			//Uses Stack to match restrictions set by problem
+				new Stack<Integer>(),
+				new Stack<Integer>(), 
+				new Stack<Integer>()
+		};
+		int discCnt = 5; //checkInput(scan);
+		for (int i = discCnt; i > 0; i--) {
 			towers[0].add(new Integer(i));
 		}
+		towersDraw(towers);
 		solve(towers);
-		
 	}
-}
-
+	/*private static int checkInput() {
+		Scanner scan = new Scanner(System.in);
+		boolean is_safe = false;
+		int out = 0;
+		while (!is_safe) {
+			try {
+				out = scan.nextInt();
+			}
+			catch(Exception e) {
+				System.out.println("Please input an integer!");
+				is_safe = false;
+			}
+		}
+			return out;
+		}*/
+		private static void solve(Stack<Integer>[] towers) {
+			int n = towers[0].size();
+			int[] ftu = {0,1,2};
+			solveHelper(n, ftu, towers);
+		}
+		private static void solveHelper(int n, int[] ftu, Stack<Integer>[] towers) {
+			if(n > 1) {
+				int[] fut = {ftu[0], ftu[2], ftu[1]};
+				solveHelper(n - 1, fut, towers);
+			}
+			towers[ftu[1]].add(towers[ftu[0]].pop());
+			towersDraw(towers);
+			if(n>1) {
+				int[] utf = {ftu[2], ftu[1], ftu[0]};
+				solveHelper(n - 1, utf, towers);
+			}
+		}
+		private static void towerDraw(Stack<Integer> tower, String naem) {
+			Integer[] a = new Integer[tower.size()];
+			System.out.print(naem + ": ");
+			tower.toArray(a);
+			for(Integer n : a) {
+				System.out.print(n);
+			}
+			System.out.println();
+		}
+		private static void towersDraw(Stack<Integer>[] towers) {
+			System.out.println();
+			towerDraw(towers[0], "A");
+			towerDraw(towers[1], "B");
+			towerDraw(towers[2], "C");
+			System.out.println();
+		}
+	}
