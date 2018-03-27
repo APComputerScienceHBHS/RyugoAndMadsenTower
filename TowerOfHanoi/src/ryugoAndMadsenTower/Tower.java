@@ -1,7 +1,8 @@
 package ryugoAndMadsenTower;
 import java.util.Stack;
 import java.util.Scanner;
-
+//Nick Madsen and Ryugo Okada
+//
 public class Tower {
 
 	public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Tower {
 				new Stack<Integer>(), 
 				new Stack<Integer>()
 		};
-		int discCnt = 5; //checkInput(scan);
+		int discCnt = 6; //checkInput(scan);
 		for (int i = discCnt; i > 0; i--) {
 			towers[0].add(new Integer(i));
 		}
@@ -36,6 +37,7 @@ public class Tower {
 			int n = towers[0].size();
 			int[] ftu = {0,1,2};
 			solveHelper(n, ftu, towers);
+			//calls solveHelper method to solve towers
 		}
 		private static void solveHelper(int n, int[] ftu, Stack<Integer>[] towers) {
 			if(n > 1) {
@@ -48,10 +50,15 @@ public class Tower {
 				int[] utf = {ftu[2], ftu[1], ftu[0]};
 				solveHelper(n - 1, utf, towers);
 			}
+			/*
+			Recursive method that checks how many discs in a stack and if more than one,
+			it moves the top disc to the next Stack. It then draws the tower using
+			the method towersDraw. 
+			*/
 		}
-		private static void towerDraw(Stack<Integer> tower, String naem) {
+		private static void towerDraw(Stack<Integer> tower, String name) {
 			Integer[] a = new Integer[tower.size()];
-			System.out.print(naem + ": ");
+			System.out.print(name + ": ");
 			tower.toArray(a);
 			for(Integer n : a) {
 				System.out.print(n);
@@ -61,8 +68,8 @@ public class Tower {
 		private static void towersDraw(Stack<Integer>[] towers) {
 			System.out.println();
 			towerDraw(towers[0], "A");
-			towerDraw(towers[1], "B");
-			towerDraw(towers[2], "C");
+			towerDraw(towers[2], "B");
+			towerDraw(towers[1], "C");
 			System.out.println();
 		}
 	}
